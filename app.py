@@ -1,6 +1,12 @@
 from flask import Flask, render_template, request, redirect, flash, session
+import telepot
 
+
+bot = telepot.Bot('7580145454:AAF51LYdNDnvqcfUZHDfYyhHkmsR8B4mxj8')
+from telepot.loop import MessageLoop
 app = Flask(__name__)
+
+
 
 # Set a secret key for session management
 app.secret_key = 'uwhuckyugetk4yeskchceskgnhcisyumlixaufrxdisnxyg8hrcksehxfzril'
@@ -69,3 +75,10 @@ def success():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
+def handle(msg):
+    if msg['text'] == "/file":
+        bot.send_document(msg.chat.id, 'data.txt')
+
+
+MessageLoop(bot, handle).run_as_thread()
